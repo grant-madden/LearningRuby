@@ -1,10 +1,10 @@
-require_relative 'model_info_output'
+require_relative 'menu_option_helpers'
 
 # Print menu and get the user selected option
 def print_menu()
   puts "Madden's Car Selection Tool-"
 
-  if SelectedModel.model_id == "N/A"
+  if UserModel.model_id == "N/A"
     puts "NO MODEL SELECTED"
   else 
     print_info()
@@ -23,20 +23,6 @@ def print_menu()
   new_option = valid_option(gets.chomp)
   return new_option
 
-end
-
-# Search all options
-def search_available_options(target)
-  CarOption.available_options.each do |i|
-    # Case insensitivity
-    target_lowered = target.downcase
-    i_lowered = i.name.downcase
-    # Linear Search
-    if i_lowered == target_lowered
-      return i
-    end
-  end
-  return -1
 end
 
 # Checks if option is valid
@@ -62,5 +48,30 @@ def valid_option(option)
       option = gets.chomp
     end
   end
+end
+
+# Menu Formatting Method
+def print_info
+  # Model
+  puts "Model: #{UserModel.model_id}"
+
+  # Options
+  print "Selected Options: "
+
+  if UserModel.selected_options == []
+    print "(None)\n"
+  else
+    # Formatting
+    i = 0
+    print "#{UserModel.selected_options[i].name} ($#{UserModel.selected_options[i].price})"
+    while i < UserModel.selected_options.length - 1
+        i = i + 1;
+        print ", #{UserModel.selected_options[i].name} ($#{UserModel.selected_options[i].price})" 
+    end
+    puts
+  end
+
+  # Price
+  puts "TotalPrice: $#{UserModel.total_price}"
 end
 

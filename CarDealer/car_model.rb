@@ -52,4 +52,11 @@ class CarModel
       selected_options.delete(option)
     end
 
+    def cancel_order
+      selected_options.each {|i| remove_option(i)}
+      @model_id = "N/A"
+      @selected_options = []
+      @total_price = 0
+    end
+    
   end

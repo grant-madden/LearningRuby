@@ -1,5 +1,5 @@
 require_relative 'car_model'
-require_relative 'menu_methods'
+require_relative 'menu_helpers'
 
 # Class Initialization
   # Adds all options to option class
@@ -15,8 +15,9 @@ require_relative 'menu_methods'
   end 
 
   # Creates new model class
-  SelectedModel = CarModel.new
+  UserModel = CarModel.new
 
+# Menu Option Handlers
 #1
 def model_select
 
@@ -26,13 +27,13 @@ def model_select
     new_id = gets.chomp.upcase
   end
 
-  SelectedModel.model_id = new_id
+  UserModel.model_id = new_id
 
 end
 
 #2
 def display_options
-  if SelectedModel.model_id == "N/A"
+  if UserModel.model_id == "N/A"
     puts "You need to select a model before adding options!"
   else
     puts
@@ -42,19 +43,26 @@ def display_options
 end
 
 #3
-def display_add_option
-  print "Enter an option to add: "
-  option_name = gets.chomp()
+def add_option_handler
+  option_name = option_input("add")
   i = search_available_options(option_name)
   if i == -1
-    puts "Error, option \"#{option_name}\" not available."
+    puts "Error, option \"#{option_name}\" not #{option_status}."
     return
   end
-  SelectedModel.add_option(i) unless i == -1
+  UserModel.add_option(i)
 end
 
 #4
-
+def remove_option
+  option_name = option_input("remove")
+  i = search_selected_options(option_name)
+  if i == -1
+    puts "Error, option \"#{option_name}\" #{option_status}."
+    return
+  end
+  UserModel.remove_option(i)
+end
 
 # Main
 menu_option = 0
@@ -68,11 +76,11 @@ while menu_option != "6"
   when "2"
     display_options()
   when "3"
-    display_add_option()
+    add_option_handler()
   when "4"
-    puts "4"
+    remove_option_handler()
   when "5"
-    puts "5"
+    UserModel.cancel_order()
   end
   puts 
 end
