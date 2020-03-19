@@ -3,7 +3,7 @@ require_relative 'menu_methods'
 
 # Class Initialization
   # Adds all options to option class
-  AvailableOptions = [['Leather Seats', 5000], 
+  [['Leather Seats', 5000], 
   ['DVD System', 1000], 
   ['10 Speakers', 800], 
   ['Navigation System',1400], 
@@ -37,7 +37,26 @@ def display_options
   else
     puts
     puts "Available Options: "
-    CarOption.available_options.each 
+    CarOption.available_options.each {|i| puts i}
+  end
+end
+
+# Methods For #3
+def display_add_option
+  print "Enter an option to add: "
+  option_name = gets.chomp
+  
+
+  CarOption.available_options.each do |i|
+    # Case insensitivity
+    option_name_lowered = option_name.downcase
+    i_lowered = i.name.downcase
+    # Linear Search
+    if i_lowered == option_name_lowered
+      temp = CarOption.new(i, i.price.to_i)
+      SelectedModel.add_option(temp)
+      return
+    end
   end
 end
 
@@ -53,7 +72,7 @@ while menu_option != "6"
   when "2"
     display_options()
   when "3"
-    puts "3"
+    display_add_option()
   when "4"
     puts "4"
   when "5"

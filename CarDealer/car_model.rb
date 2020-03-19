@@ -20,7 +20,7 @@ class CarModel
     end
   
     def total_price
-      base_price + options_price
+      base_price + options_price()
     end
   
     def base_price
@@ -35,15 +35,21 @@ class CarModel
       if selected_options == []
         options_price = 0
       else
-        selected_options.map(&:price).sum
+        options_price = 0
+        selected_options.each do |i|
+          options_price = options_price + i.price.to_i
+        end
       end
+        # selected_options.map(&:price).sum
+      return options_price
     end
   
     def add_option(option)
       selected_options.push(option)
     end
   
-    def remote_option(option)
+    def remove_option(option)
       selected_options.delete(option)
     end
+
   end

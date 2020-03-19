@@ -6,7 +6,7 @@ class CarOption
   
     def initialize(name, price)
       @name = name
-      @price = price
+      @price = price.to_i
       # = @@available_options || []   (=)    ||= 
       @@available_options ||= []
       @@available_options.push(self) 
@@ -16,5 +16,5 @@ class CarOption
       "#{name} ($#{price})"
     end
   
-    attr_reader :name, :price
+    attr_accessor :name, :price
   end

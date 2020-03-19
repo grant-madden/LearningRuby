@@ -1,3 +1,4 @@
+require_relative 'model_info_output'
 # Print menu and get the user selected option
 
 def print_menu()
@@ -6,17 +7,7 @@ def print_menu()
   if SelectedModel.model_id == "N/A"
     puts "NO MODEL SELECTED"
   else 
-    # Model
-    puts "Model: #{SelectedModel.model_id}"
-    # Options
-    print "Selected Options: "
-    if SelectedModel.selected_options == []
-      print "(None)\n" 
-    else
-      print "#{SelectedModel.selected_options}"
-    end
-    # Price
-    puts "TotalPrice: $#{SelectedModel.total_price}"
+    print_info()
   end
 
   # Print Menu Choices
