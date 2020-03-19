@@ -16,7 +16,7 @@ def print_menu()
       print "#{SelectedModel.selected_options}"
     end
     # Price
-    puts "TotalPrice: #{SelectedModel.total_price}"
+    puts "TotalPrice: $#{SelectedModel.total_price}"
   end
 
   # Print Menu Choices

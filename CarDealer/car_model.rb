@@ -25,9 +25,9 @@ class CarModel
   
     def base_price
       {
-        "X" => 5000,
-        "L" => 7500,
-        "E" => 22500,
+        "E" => 10000,
+        "L" => 12000,
+        "X" => 18000,        
       }[model_id]
     end
   

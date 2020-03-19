@@ -3,7 +3,7 @@ require_relative 'menu_methods'
 
 # Class Initialization
   # Adds all options to option class
-  [['Leather Seats', 5000], 
+  AvailableOptions = [['Leather Seats', 5000], 
   ['DVD System', 1000], 
   ['10 Speakers', 800], 
   ['Navigation System',1400], 
@@ -17,7 +17,7 @@ require_relative 'menu_methods'
   # Creates new model class
   SelectedModel = CarModel.new
 
-# Methods for #1
+# Methods For #1
 def model_select
 
   new_id = ""
@@ -30,6 +30,17 @@ def model_select
 
 end
 
+# Methods For #2
+def display_options
+  if SelectedModel.model_id == "N/A"
+    puts "You need to select a model before adding options!"
+  else
+    puts
+    puts "Available Options: "
+    CarOption.available_options.each 
+  end
+end
+
 # Main
 menu_option = 0
 
@@ -40,7 +51,7 @@ while menu_option != "6"
   when "1"
     model_select()
   when "2"
-    puts "2"
+    display_options()
   when "3"
     puts "3"
   when "4"
@@ -48,6 +59,6 @@ while menu_option != "6"
   when "5"
     puts "5"
   end
-
+  puts 
 end
 
