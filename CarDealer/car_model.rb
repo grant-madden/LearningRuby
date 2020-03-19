@@ -12,13 +12,8 @@ class CarModel
       @total_price = 0
       # raise "Unknown model" unless CarModel.available_models.include?(model_id)
     end
-  
-    attr_reader :model_id, :selected_options, :total_price
+    
     attr_accessor :model_id, :selected_options, :total_price
-  
-    # def model_id
-    #   @model_id
-    # end
   
     def to_s
       "Model: #{model_id}"
@@ -37,7 +32,11 @@ class CarModel
     end
   
     def options_price
-      selected_options.map(&:price).sum
+      if selected_options == []
+        options_price = 0
+      else
+        selected_options.map(&:price).sum
+      end
     end
   
     def add_option(option)
