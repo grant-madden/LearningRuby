@@ -17,7 +17,7 @@ require_relative 'menu_methods'
   # Creates new model class
   SelectedModel = CarModel.new
 
-# Methods For #1
+#1
 def model_select
 
   new_id = ""
@@ -30,7 +30,7 @@ def model_select
 
 end
 
-# Methods For #2
+#2
 def display_options
   if SelectedModel.model_id == "N/A"
     puts "You need to select a model before adding options!"
@@ -41,24 +41,20 @@ def display_options
   end
 end
 
-# Methods For #3
+#3
 def display_add_option
   print "Enter an option to add: "
-  option_name = gets.chomp
-  
-
-  CarOption.available_options.each do |i|
-    # Case insensitivity
-    option_name_lowered = option_name.downcase
-    i_lowered = i.name.downcase
-    # Linear Search
-    if i_lowered == option_name_lowered
-      temp = CarOption.new(i, i.price.to_i)
-      SelectedModel.add_option(temp)
-      return
-    end
+  option_name = gets.chomp()
+  i = search_available_options(option_name)
+  if i == -1
+    puts "Error, option \"#{option_name}\" not available."
+    return
   end
+  SelectedModel.add_option(i) unless i == -1
 end
+
+#4
+
 
 # Main
 menu_option = 0

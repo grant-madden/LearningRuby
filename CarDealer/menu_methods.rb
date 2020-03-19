@@ -1,6 +1,6 @@
 require_relative 'model_info_output'
-# Print menu and get the user selected option
 
+# Print menu and get the user selected option
 def print_menu()
   puts "Madden's Car Selection Tool-"
 
@@ -24,6 +24,21 @@ def print_menu()
   return new_option
 
 end
+
+# Search all options
+def search_available_options(target)
+  CarOption.available_options.each do |i|
+    # Case insensitivity
+    target_lowered = target.downcase
+    i_lowered = i.name.downcase
+    # Linear Search
+    if i_lowered == target_lowered
+      return i
+    end
+  end
+  return -1
+end
+
 # Checks if option is valid
 def valid_option(option)
   while true 
@@ -48,3 +63,4 @@ def valid_option(option)
     end
   end
 end
+

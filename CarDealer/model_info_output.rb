@@ -1,3 +1,4 @@
+# Menu Formatting Method
 def print_info
   # Model
   puts "Model: #{SelectedModel.model_id}"
