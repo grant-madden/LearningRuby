@@ -1,13 +1,16 @@
 require_relative 'menu_option_helpers'
 
 # Print menu and get the user selected option
-def print_menu()
+def print_menu_and_get_selection(user_model)
   puts "Madden's Car Selection Tool-"
 
-  if UserModel.model_id == "N/A"
+  # Print Current Model Info
+  if user_model.model_id == nil
     puts "NO MODEL SELECTED"
   else 
-    print_info()
+    puts "Model: #{user_model.model_id}"
+    puts "Selected Options: #{user_model.selected_options_list}"
+    puts "TotalPrice: $#{user_model.total_price}"
   end
 
   # Print Menu Choices
@@ -20,58 +23,23 @@ def print_menu()
 
   # Get User Choice
   print "Enter choice: "
-  new_option = valid_option(gets.chomp)
-  return new_option
+  return valid_menu_selection(gets.chomp)
 
 end
 
 # Checks if option is valid
-def valid_option(option)
-  while true 
+def valid_menu_selection(user_selection)
+  loop do
     # Only Exits loop when valid option
-    case option
-    when "1"
-      return option
-    when "2"
-      return option
-    when "3"
-      return option
-    when "4"
-      return option
-    when "5"
-      return option
-    when "6"
-      return option
+    case user_selection
+    when "1", "2", "3", "4", "5", "6"
+      return user_selection
     else # Gets new Valid option
       puts "Error, Invalid Option!"
       print "Enter choice (1-6): "
-      option = gets.chomp
+      user_selection = gets.chomp
     end
   end
 end
 
-# Menu Formatting Method
-def print_info
-  # Model
-  puts "Model: #{UserModel.model_id}"
-
-  # Options
-  print "Selected Options: "
-
-  if UserModel.selected_options == []
-    print "(None)\n"
-  else
-    # Formatting
-    i = 0
-    print "#{UserModel.selected_options[i].name} ($#{UserModel.selected_options[i].price})"
-    while i < UserModel.selected_options.length - 1
-        i = i + 1;
-        print ", #{UserModel.selected_options[i].name} ($#{UserModel.selected_options[i].price})" 
-    end
-    puts
-  end
-
-  # Price
-  puts "TotalPrice: $#{UserModel.total_price}"
-end
 

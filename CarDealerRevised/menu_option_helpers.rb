@@ -15,18 +15,18 @@ def search_available_options(target)
         return i
       end
     end
-    return -1
-  end
+  return nil
+end
 
-  def search_selected_options(target)
-    UserModel.selected_options.each do |i|
-      # Case insensitivity
-      target_lowered = target.downcase
-      i_lowered = i.name.downcase
-      # Linear Search
-      if i_lowered == target_lowered
-        return i
-      end
+def search_selected_options(user_model, target)
+  user_model.selected_options.each do |i|
+    # Case insensitivity
+    target_lowered = target.downcase
+    i_lowered = i.name.downcase
+    # Linear Search
+    if i_lowered == target_lowered
+      return i
     end
-    return -1
   end
+  return nil
+end
