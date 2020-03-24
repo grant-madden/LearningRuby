@@ -1,10 +1,10 @@
 require_relative 'car_model'
+require 'set'
 
 class CarPackage
-
   def initialize(model)
     @model_info = model
-    @selected_options = []
+    @selected_options = Set.new
   end
 
   attr_accessor :model_info, :selected_options
@@ -18,16 +18,7 @@ class CarPackage
   end
 
   def search_selected_options(target)
-    selected_options.each do |i|
-      # Case insensitivity
-      target_lowered = target.downcase
-      i_lowered = i.name.downcase
-      # Linear Search
-      if i_lowered == target_lowered
-        return i
-      end
-    end
-    return nil
+    selected_options.find { |opt| opt.name.casecmp(target) == 0 }
   end
 
   def add_option(option)
@@ -39,7 +30,7 @@ class CarPackage
       end
       add_option(i)
     else
-      selected_options.push(option)
+      selected_options.add(option)
     end
   end
 
@@ -61,20 +52,17 @@ class CarPackage
   end
   
   def options_price
-    if selected_options.empty?
-      return 0
-    else
-      options_price = 0
-      selected_options.each do |i|
-        options_price = options_price + i.price.to_i
-      end
-    end
-    return options_price
-        # selected_options.map(&:price).sum
+    # selected_options
+    #   .map {|opt| opt.price }
+    #   .reduce { |sum, value| sum = sum + value } || 0
+
+    selected_options
+      .map(&:price)
+      .reduce(&:+) || 0
   end
 
   def cancel_order
     @model_info.id = nil
-    @selected_options = []
+    @selected_options = Set.new
   end  
 end
