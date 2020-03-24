@@ -1,16 +1,14 @@
-require_relative 'menu_option_helpers'
-
 # Print menu and get the user selected option
-def print_menu_and_get_selection(user_model)
+def print_menu_and_get_selection(user_package)
   puts "Madden's Car Selection Tool-"
-
+  
   # Print Current Model Info
-  if user_model.model_id == nil
-    puts "NO MODEL SELECTED"
+  if user_package.model_info.has_selected_model?
+    puts "Model: #{user_package.model_info.id}"
+    puts "Selected Options: #{user_package.selected_options_list}"
+    puts "Total Price: $#{user_package.total_price}"
   else 
-    puts "Model: #{user_model.model_id}"
-    puts "Selected Options: #{user_model.selected_options_list}"
-    puts "TotalPrice: $#{user_model.total_price}"
+    puts "NO MODEL SELECTED"
   end
 
   # Print Menu Choices
@@ -23,10 +21,9 @@ def print_menu_and_get_selection(user_model)
 
   # Get User Choice
   print "Enter choice: "
-  return valid_menu_selection(gets.chomp)
-
+  valid_menu_selection(gets.chomp)
 end
-
+  
 # Checks if option is valid
 def valid_menu_selection(user_selection)
   loop do
@@ -43,3 +40,17 @@ def valid_menu_selection(user_selection)
 end
 
 
+# Checks if option is valid
+def valid_menu_selection(user_selection)
+  loop do
+    # Only Exits loop when valid option
+    case user_selection
+    when "1", "2", "3", "4", "5", "6"
+      return user_selection
+    else # Gets new ValiSd option
+      puts "Error, Invalid Option!"
+      print "Enter choice (1-6): "
+      user_selection = gets.chomp
+    end
+  end
+end

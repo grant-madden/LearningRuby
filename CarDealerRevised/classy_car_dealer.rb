@@ -1,6 +1,7 @@
 require_relative 'car_option'
 require_relative 'car_model'
-require_relative 'menu_helpers'
+require_relative 'car_package'
+require_relative 'menu_display'
 
 # Class Initialization
 # Adds all options to option class
@@ -17,11 +18,12 @@ end
 
 # Creates new model class
 user_model = CarModel.new
+user_package = CarPackage.new(user_model)
 
 # Displays all available options to purchase
-def display_available_options(user_model)
+def display_available_options(user_package)
   puts
-  if user_model.has_selected_model?
+  if user_package.model_info.has_selected_model?
     puts "Available Options: "
     puts CarOption.available_options_list
   else
@@ -29,20 +31,26 @@ def display_available_options(user_model)
   end
 end
 
+# Gets option input
+def option_input(option_action)
+  print "Enter an option to #{option_action}: "
+  return gets.chomp()
+end
+
 # Main
 loop do
-  input = print_menu_and_get_selection(user_model)
+  input = print_menu_and_get_selection(user_package)
   case input
   when "1"
-    user_model.select_model
+    user_package.model_info.select_model
   when "2"
-    display_available_options(user_model)
+    display_available_options(user_package)
   when "3"
-    user_model.add_option(option_input("add"))
+    user_package.add_option(option_input("add"))
   when "4"
-    user_model.remove_option(option_input("remove"))
+    user_package.remove_option(option_input("remove"))
   when "5"
-    user_model.cancel_order
+    user_package.cancel_order
   when "6"
     exit
   end
