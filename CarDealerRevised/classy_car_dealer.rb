@@ -74,7 +74,7 @@ class MainApp
     output.puts
     if user_package.model_info.has_selected_model?
       output.puts "Available Options: "
-      output.puts CarOption.available_options_list
+      output.puts CarOptionList.available_options.to_s("\n")
     else
       output.puts "You need to select a model before adding options!"
     end
